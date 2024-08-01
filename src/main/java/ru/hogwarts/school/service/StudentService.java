@@ -7,7 +7,7 @@ public interface StudentService {
     public Student delete(Long id);
     public Student create(Student student);
     public Student read(Long id) ;
-    public Student update(Long id, Student student);
+    public Student update(Student student);
     ;
 
 
