@@ -1,16 +1,16 @@
 package ru.hogwarts.school.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
 public class Faculty {
 
+    @SequenceGenerator(name = "generatorFacultyId", allocationSize = 1)
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "generatorFacultyId")
     private Long id;
     private String name;
     private String color;

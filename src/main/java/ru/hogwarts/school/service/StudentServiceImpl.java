@@ -31,11 +31,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student update(Student student) {
-//        studentRepository.getById(id).setName(student.getName());
-//        studentRepository.getById(id).setAge(student.getAge());
-        return studentRepository.save(student);
-//        return studentRepository.findById(id).get();
+    public Student update(Long id, Student student) {
+        studentRepository.getById(id).setName(student.getName());
+        studentRepository.getById(id).setAge(student.getAge());
+//        return studentRepository.save(student);
+        return studentRepository.findById(id).get();
     }
 
 
