@@ -29,10 +29,13 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Faculty update(Faculty faculty) {
-//        facultyRepository.getById(id).setName(faculty.getName());
-//        facultyRepository.getById(id).setColor(faculty.getColor());
-        return facultyRepository.save(faculty);
+    public Faculty update(Long id, Faculty faculty) {
+//        logger.info("update ");
+        return facultyRepository.findById(id).map(facultyDb -> {
+            facultyDb.setName(faculty.getName());
+            facultyDb.setColor(faculty.getColor());
+            return facultyRepository.save(facultyDb);
+        }).orElse(null);
     }
 
     @Override

@@ -7,9 +7,6 @@ import java.util.Objects;
 @Entity
 public class Student {
 
-    //    @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE) //(strategy=GenerationType.SEQUENCE)//(strategy = GenerationType.AUTO)
-//    @SequenceGenerator(name = "student_id", initialValue = 1, allocationSize = 1)
     @SequenceGenerator(name = "generatorStudentId", allocationSize = 1)
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,

@@ -26,8 +26,8 @@ public class FacultyController {
     }
 
     @PutMapping("{id}")
-    public Faculty update(@RequestBody Faculty faculty) {
-        return facultyService.update(faculty);
+    public Faculty update(Long id, Faculty faculty) {
+        return facultyService.update(id, faculty);
     }
 
     @DeleteMapping("{id}")

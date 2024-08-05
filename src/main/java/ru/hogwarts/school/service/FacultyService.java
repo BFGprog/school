@@ -7,7 +7,7 @@ public interface FacultyService {
 
     Faculty read(Long id);
 
-    Faculty update(Faculty faculty);
+    Faculty update(Long id, Faculty faculty);
 
     Faculty delete(Long id);
 }

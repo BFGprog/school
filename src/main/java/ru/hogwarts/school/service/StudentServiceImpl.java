@@ -32,10 +32,15 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student update(Long id, Student student) {
-        studentRepository.getById(id).setName(student.getName());
-        studentRepository.getById(id).setAge(student.getAge());
+//        logger.info("update ");
+//        studentRepository.getReferenceById(id).setName(student.getName());
+//        studentRepository.getById(id).setAge(student.getAge());
 //        return studentRepository.save(student);
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).map(studentDb -> {
+            studentDb.setName(student.getName());
+            studentDb.setAge(student.getAge());
+            return studentRepository.save(studentDb);
+        }).orElse(null);
     }
 
 
