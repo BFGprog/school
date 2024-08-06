@@ -3,7 +3,10 @@ package ru.hogwarts.school.controller;
 import jakarta.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("faculty")
@@ -35,4 +38,9 @@ public class FacultyController {
         return facultyService.delete(id);
     }
 
+
+    @GetMapping("student/{id}")
+    public List<Student> getStudent(Long id) {
+        return facultyService.getStudent(id);
+    }
 }

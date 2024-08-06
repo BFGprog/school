@@ -1,10 +1,12 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -39,8 +41,19 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(id).map(studentDb -> {
             studentDb.setName(student.getName());
             studentDb.setAge(student.getAge());
+            studentDb.setFaculty(student.getFaculty());
             return studentRepository.save(studentDb);
         }).orElse(null);
+    }
+
+    @Override
+    public List<Student> getByAge(Integer age) {
+        return studentRepository.findAllByAge(age);
+    }
+
+    @Override
+    public List<Student> getBetweenAge(Integer from, Integer to) {
+        return studentRepository.findByAgeBetween(from, to);
     }
 
 
@@ -57,4 +70,9 @@ public class StudentServiceImpl implements StudentService {
     //findAll() возвращает все записи из таблицы;
     //count() возвращает число int — количество записей в таблице;
     //deleteById() удаляет сущность из БД по ее идентификатору;
+
+    @Override
+    public Faculty getFaculty(Long id) {
+        return studentRepository.findById(id).get().getFaculty();
+    }
 }

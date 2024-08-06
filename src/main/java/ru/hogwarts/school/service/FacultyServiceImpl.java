@@ -2,9 +2,11 @@ package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -43,5 +45,10 @@ public class FacultyServiceImpl implements FacultyService {
         Faculty facultyDel = facultyRepository.findById(id).get();
         facultyRepository.deleteById(id);
         return facultyDel;
+    }
+
+    @Override
+    public List<Student> getStudent(Long id) {
+        return facultyRepository.findById(id).get().getStudent();
     }
 }
