@@ -22,12 +22,13 @@ public class Faculty {
     @OneToMany(mappedBy = "faculty")
     private List<Student> student;
 
-//    public Faculty(){}
-//    public Faculty(Long id, String name, String color) {
-//        this.id = id;
-//        this.name = name;
-//        this.color = color;
-//    }
+    public Faculty() {
+    }
+
+    public Faculty(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
 
 
     public List<Student> getStudent() {

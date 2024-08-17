@@ -31,6 +31,14 @@ public class Student {
 //        this.avatar = avatar;
 //    }
 
+    public Student() {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
     public Faculty getFaculty() {
         return faculty;
     }
@@ -38,12 +46,6 @@ public class Student {
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
-//    public Student(){}
-//    public Student(Long id, String name, int age) {
-//        this.id = id;
-//        this.name = name;
-//        this.age = age;
-//    }
 
     @Override
     public String toString() {
