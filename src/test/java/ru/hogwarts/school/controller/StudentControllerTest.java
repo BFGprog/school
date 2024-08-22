@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
@@ -14,7 +15,10 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -118,9 +122,13 @@ class StudentControllerTest {
         students.add(student3);
 
         // when
-        ResponseEntity<List> studentResponseEntity = testRestTemplate.getForEntity(
+        ResponseEntity<List<Student>> studentResponseEntity = testRestTemplate.exchange(
                 "http://localhost:" + port + "/student?age=" + age,
-                List.class);
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Student>>() {
+                }
+        );
         // then
         assertNotNull(studentResponseEntity);
         assertEquals(HttpStatusCode.valueOf(200), studentResponseEntity.getStatusCode());
@@ -128,7 +136,8 @@ class StudentControllerTest {
         List<Student> actualStudent = studentResponseEntity.getBody();
         assertEquals(students.getClass(), actualStudent.getClass());
         assertEquals(students.size(), actualStudent.size());
-//        Assertions.assertThat(students).containsExactlyInAnyOrderElementsOf(actualStudent);
+        assertEquals(students.get(0), actualStudent.get(0));
+        Assertions.assertThat(students).containsExactlyInAnyOrderElementsOf(actualStudent);
     }
 
     @Test
@@ -145,9 +154,13 @@ class StudentControllerTest {
         students.add(student2);
 
         // when
-        ResponseEntity<List> studentResponseEntity = testRestTemplate.getForEntity(
+        ResponseEntity<List<Student>> studentResponseEntity = testRestTemplate.exchange(
                 "http://localhost:" + port + "/student/byAgeBetween?from=" + from + "&to=" + to,
-                List.class);
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Student>>() {
+                }
+        );
 
         // then
         assertNotNull(studentResponseEntity);
@@ -156,7 +169,8 @@ class StudentControllerTest {
         List<Student> actualStudent = studentResponseEntity.getBody();
         assertEquals(students.getClass(), actualStudent.getClass());
         assertEquals(students.size(), actualStudent.size());
-//        assertEquals(students.get(students.size() - 1), actualStudent.get(actualStudent.size() - 1));
+        Assertions.assertThat(students).containsExactlyInAnyOrderElementsOf(actualStudent);
+        assertEquals(students.get(students.size() - 1), actualStudent.get(actualStudent.size() - 1));
 
     }
 
