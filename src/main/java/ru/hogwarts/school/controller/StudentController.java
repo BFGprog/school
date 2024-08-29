@@ -49,7 +49,7 @@ public class StudentController {
     }
 
     @GetMapping("faculty/{id}")
-    public Faculty getFaculty(Long id) {
+    public Faculty getFaculty(@PathVariable Long id) {
         return studentService.getFaculty(id);
     }
 }

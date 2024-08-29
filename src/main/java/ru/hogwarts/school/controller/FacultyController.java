@@ -29,7 +29,7 @@ public class FacultyController {
     }
 
     @PutMapping("{id}")
-    public Faculty update(Long id, Faculty faculty) {
+    public Faculty update(@PathVariable Long id, @RequestBody Faculty faculty) {
         return facultyService.update(id, faculty);
     }
 
@@ -40,7 +40,7 @@ public class FacultyController {
 
 
     @GetMapping("student/{id}")
-    public List<Student> getStudent(Long id) {
+    public List<Student> getStudent(@PathVariable Long id) {
         return facultyService.getStudent(id);
     }
 }

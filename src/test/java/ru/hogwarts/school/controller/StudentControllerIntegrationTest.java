@@ -15,16 +15,13 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class StudentControllerTest {
+class StudentControllerIntegrationTest {
 
     @LocalServerPort
     private int port;
@@ -191,11 +188,11 @@ class StudentControllerTest {
 
         // then
         assertNotNull(facultyResponseEntity);
-//        assertEquals(HttpStatusCode.valueOf(200), facultyResponseEntity.getStatusCode());
-//
-//        Faculty actualFaculty = facultyResponseEntity.getBody();
-//        assertEquals(faculty.getColor(), actualFaculty.getColor());
-//        assertEquals(faculty.getName(), actualFaculty.getName());
+        assertEquals(HttpStatusCode.valueOf(200), facultyResponseEntity.getStatusCode());
+
+        Faculty actualFaculty = facultyResponseEntity.getBody();
+        assertEquals(faculty.getColor(), actualFaculty.getColor());
+        assertEquals(faculty.getName(), actualFaculty.getName());
 
     }
 
