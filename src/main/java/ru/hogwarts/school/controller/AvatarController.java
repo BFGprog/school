@@ -2,6 +2,7 @@ package ru.hogwarts.school.controller;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +19,8 @@ import java.io.OutputStream;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 @RestController
 @RequestMapping("avatar")
@@ -66,5 +69,11 @@ public class AvatarController {
         }
     }
 
-
+    @GetMapping
+    public Page<Avatar> getAll(
+            @RequestParam("offset") Integer page,
+            @RequestParam("limit") Integer limit
+    ) {
+        return avatarService.findAll(PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id")));
+    }
 }

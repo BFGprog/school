@@ -39,7 +39,7 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getByAge(Integer age){
+    public List<Student> getByAge(Integer age) {
         return studentService.getByAge(age);
     }
 
@@ -51,5 +51,20 @@ public class StudentController {
     @GetMapping("faculty/{id}")
     public Faculty getFaculty(@PathVariable Long id) {
         return studentService.getFaculty(id);
+    }
+
+    @GetMapping("count")
+    public Integer getNumberOfStudents() {
+        return studentService.getNumberOfStudents();
+    }
+
+    @GetMapping("average")
+    public int getAverageAge() {
+        return studentService.getAverageAge();
+    }
+
+    @GetMapping("five")
+    public List<Student> get() {
+        return studentService.getFiveLastStudent();
     }
 }

@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
 
@@ -13,5 +15,7 @@ public interface AvatarService {
     Avatar findAvatar(Long id);
 
     public byte[] generateImageData(Path filePath) throws IOException;
+
+    public Page<Avatar> findAll(Pageable pageable);
 
 }
