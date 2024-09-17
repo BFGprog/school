@@ -1,13 +1,13 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -17,22 +17,24 @@ public class FacultyServiceImpl implements FacultyService {
     public FacultyServiceImpl(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
+    Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
 
 
     @Override
     public Faculty create(Faculty faculty) {
-//        Long actualId = ++countId;
+        logger.debug("Was invoked method for create faculty");
         return facultyRepository.save(faculty);
     }
 
     @Override
     public Faculty read(Long id) {
+        logger.debug("Was invoked method for find faculty");
         return facultyRepository.findById(id).get();
     }
 
     @Override
     public Faculty update(Long id, Faculty faculty) {
-//        logger.info("update ");
+        logger.debug("Was invoked method for update faculty");
         return facultyRepository.findById(id).map(facultyDb -> {
             facultyDb.setName(faculty.getName());
             facultyDb.setColor(faculty.getColor());
@@ -42,6 +44,7 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public Faculty delete(Long id) {
+        logger.debug("Was invoked method for delete faculty");
         Faculty facultyDel = facultyRepository.findById(id).get();
         facultyRepository.deleteById(id);
         return facultyDel;
@@ -49,6 +52,7 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public List<Student> getStudent(Long id) {
+        logger.debug("Was invoked method for delete students by faculty");
         return facultyRepository.findById(id).get().getStudent();
     }
 }
