@@ -8,6 +8,8 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -96,5 +98,68 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.getFiveLastStudent();
     }
 
+    @Override
+    public List<String> getStudentsStartingWithA() {
+        logger.debug("Was invoked method for get student names starting with «A»");
+
+        List<String> names = studentRepository.findAll()
+                .stream()
+                .filter(s -> s.getName().substring(0, 1).equals("A"))
+                .map(s -> s.getName())
+                .map(s -> s.toLowerCase())
+                .map(name -> name.substring(0, 1).toUpperCase() + name.substring(1))
+                .sorted()
+                .collect(Collectors.toList());
+
+        return names;
+    }
+
+    @Override
+    public Double getAverageAgeStream() {
+        logger.debug("Was invoked method for get average age students");
+
+        Double averageAge = studentRepository.findAll()
+                .stream()
+                .mapToDouble(s -> s.getAge())
+                .average()
+                .orElse(Double.NaN);
+
+        return averageAge;
+    }
+
+    @Override
+    public String getTimeMethod() {
+        logger.debug("Was invoked method for get time");
+
+        //first
+        long startTime = System.currentTimeMillis();
+        int sum = Stream.iterate(1, a -> a + 1)
+                .limit(100_000_000)
+                .reduce(0, (a, b) -> a + b);
+        long endTime = System.currentTimeMillis();
+        logger.debug(String.valueOf(endTime - startTime));
+
+        //second
+        startTime = System.currentTimeMillis();
+        int sum2 = 0;
+        for (int i = 0; i <= 100_000_000; i++) {
+            sum2 += i;
+        }
+        endTime = System.currentTimeMillis();
+        logger.debug(String.valueOf(endTime - startTime));
+
+        //Third
+        startTime = System.currentTimeMillis();
+        int sum3 = Stream.iterate(1, a -> a + 1)
+                .parallel()
+                .limit(100_000_000)
+                .reduce(0, (a, b) -> a + b);
+        endTime = System.currentTimeMillis();
+        logger.debug(String.valueOf(endTime - startTime));
+
+        return "first: " + sum + "\n" +
+                "second: " + sum2 + "\n" +
+                "third: " + sum3 ;
+    }
 
 }

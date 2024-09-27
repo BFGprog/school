@@ -67,4 +67,19 @@ public class StudentController {
     public List<Student> get() {
         return studentService.getFiveLastStudent();
     }
+
+    @GetMapping("get-all-start-a")
+    public List<String> getStudentsStartingWithA() {
+        return studentService.getStudentsStartingWithA();
+    }
+
+    @GetMapping("average-stream")
+    public Double getAverageAgeStream() {
+        return studentService.getAverageAgeStream();
+    }
+
+    @GetMapping("get-time")
+    public String getTimeMethod() {
+        return studentService.getTimeMethod();
+    }
 }

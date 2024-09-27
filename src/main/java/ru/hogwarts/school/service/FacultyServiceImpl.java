@@ -7,6 +7,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -54,5 +55,20 @@ public class FacultyServiceImpl implements FacultyService {
     public List<Student> getStudent(Long id) {
         logger.debug("Was invoked method for delete students by faculty");
         return facultyRepository.findById(id).get().getStudent();
+    }
+
+    @Override
+    public Faculty getLongFacultyName() {
+
+        Faculty faculty = facultyRepository.findAll()
+                .stream()
+                .max(Comparator.comparingInt(f ->
+                        f.getName().length()))
+                .orElse(null);
+
+//                .mapToInt(f -> f.getName().length())
+//                .max();
+
+        return faculty;
     }
 }

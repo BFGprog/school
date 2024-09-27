@@ -14,4 +14,6 @@ public interface FacultyService {
 
     Faculty delete(Long id);
     List<Student> getStudent(Long id);
+
+    Faculty getLongFacultyName();
 }
