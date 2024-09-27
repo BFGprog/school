@@ -104,9 +104,9 @@ public class StudentServiceImpl implements StudentService {
 
         List<String> names = studentRepository.findAll()
                 .stream()
-                .filter(s -> s.getName().substring(0, 1).equals("A"))
                 .map(s -> s.getName())
                 .map(s -> s.toLowerCase())
+                .filter(s -> s.substring(0, 1).equals("a"))
                 .map(name -> name.substring(0, 1).toUpperCase() + name.substring(1))
                 .sorted()
                 .collect(Collectors.toList());
