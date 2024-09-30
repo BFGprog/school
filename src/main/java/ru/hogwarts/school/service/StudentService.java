@@ -23,7 +23,6 @@ public interface StudentService {
     public List<Student> getFiveLastStudent();
     public List<String> getStudentsStartingWithA();
     public Double getAverageAgeStream();
-    public String getTimeMethod();
 
 
 

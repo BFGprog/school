@@ -19,4 +19,9 @@ public class InfoController {
         return infoService.getPort();
     }
 
+    @GetMapping("get-time")
+    public String getTimeMethod() {
+        return infoService.getTimeMethod();
+    }
+
 }

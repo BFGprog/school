@@ -78,8 +78,5 @@ public class StudentController {
         return studentService.getAverageAgeStream();
     }
 
-    @GetMapping("get-time")
-    public String getTimeMethod() {
-        return studentService.getTimeMethod();
-    }
+
 }
