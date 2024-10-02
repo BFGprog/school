@@ -24,7 +24,11 @@ public interface StudentService {
     public List<String> getStudentsStartingWithA();
     public Double getAverageAgeStream();
 
-
+    // HW 4.5
+    public void printParallel();
+    public void printSynchronized();
+    public void printParallelTest();
+    public void printSynchronizedTest();
 
 
 

@@ -1,5 +1,6 @@
 package ru.hogwarts.school.service;
 
+import jakarta.transaction.Synchronization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -128,4 +129,113 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
+    @Override
+    public void printParallel() {
+        logger.debug("Was invoked method for parallel print students to the console");
+
+        List<Student> students = studentRepository.findAll();
+        for (int i = 0; i < students.size(); i++) {
+            System.out.println(i + ". " + students.get(i));
+        }
+
+        printParallel(students.get(0));
+        printParallel(students.get(1));
+
+        new Thread(() -> {
+            printParallel(students.get(2));
+            printParallel(students.get(3));
+        }).start();
+
+        new Thread(() -> {
+        printParallel(students.get(4));
+        printParallel(students.get(5));
+        }).start();
+
+    }
+
+    @Override
+    public void printSynchronized() {
+        logger.debug("Was invoked method for synchronized print students to the console");
+
+        List<Student> students = studentRepository.findAll();
+        for (int i = 0; i < students.size(); i++) {
+            System.out.println(i + ". " + students.get(i));
+        }
+
+        printSynchronized(students.get(0));
+        printSynchronized(students.get(1));
+
+        new Thread(() -> {
+            printSynchronized(students.get(2));
+            printSynchronized(students.get(3));
+        }).start();
+
+        new Thread(() -> {
+        printSynchronized(students.get(4));
+        printSynchronized(students.get(5));
+        }).start();
+    }
+
+    @Override
+    public void printParallelTest() {
+        logger.debug("Was invoked method for parallel print students to the console");
+
+        List<Student> students = studentRepository.findAll();
+        for (int i = 0; i < students.size(); i++) {
+            System.out.println(i + ". " + students.get(i));
+        }
+
+        printParallel(students.get(0));
+        printParallel(students.get(1));
+
+        students.stream()
+                .parallel()
+                .skip(2)
+                .limit(2)
+                .forEach(this::printParallel);
+
+        printParallel(students.get(4));
+        printParallel(students.get(5));
+    }
+
+
+    public void printParallel(Student student)  {
+//        try {
+//            wait(500); // throws an error
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        System.out.println(student);
+    }
+
+    @Override
+    public void printSynchronizedTest() {
+        logger.debug("Was invoked method for synchronized print students to the console");
+
+        List<Student> students = studentRepository.findAll();
+        for (int i = 0; i < students.size(); i++) {
+            System.out.println(i + ". " + students.get(i));
+        }
+
+        printSynchronized(students.get(0));
+        printSynchronized(students.get(1));
+
+        students.stream()
+                .parallel()
+                .skip(2)
+                .limit(2)
+                .forEach(this::printSynchronized);
+
+        printSynchronized(students.get(4));
+        printSynchronized(students.get(5));
+    }
+
+    public synchronized void printSynchronized(Student student)  {
+        try {
+            wait(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(student);
+    }
 }
