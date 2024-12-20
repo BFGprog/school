@@ -1,0 +1,6 @@
+INSERT INTO student (id, age, name) VALUES (3, 21, 'test1');
+INSERT INTO student (id, age, name) VALUES (4, 22, 'test2');
+INSERT INTO student (id, age, name) VALUES (5, 23, 'test3');
+
+
+
